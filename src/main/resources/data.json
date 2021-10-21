@@ -42,20 +42,6 @@
     "Legendary": false
   },
   {
-    "Number": 3,
-    "Name": "VenusaurMega Venusaur",
-    "Type": ["Grass", "Poison"],
-    "Total": 625,
-    "HP": 80,
-    "Attack": 100,
-    "Defense": 123,
-    "Sp. Atk": 122,
-    "Sp. Def": 120,
-    "Speed": 80,
-    "Generation": 1,
-    "Legendary": false
-  },
-  {
     "Number": 4,
     "Name": "Charmander",
     "Type": ["Fire"],
@@ -98,34 +84,6 @@
     "Legendary": false
   },
   {
-    "Number": 6,
-    "Name": "CharizardMega Charizard X",
-    "Type": ["Fire", "Dragon"],
-    "Total": 634,
-    "HP": 78,
-    "Attack": 130,
-    "Defense": 111,
-    "Sp. Atk": 130,
-    "Sp. Def": 85,
-    "Speed": 100,
-    "Generation": 1,
-    "Legendary": false
-  },
-  {
-    "Number": 6,
-    "Name": "CharizardMega Charizard Y",
-    "Type": ["Fire", "Flying"],
-    "Total": 634,
-    "HP": 78,
-    "Attack": 104,
-    "Defense": 78,
-    "Sp. Atk": 159,
-    "Sp. Def": 115,
-    "Speed": 100,
-    "Generation": 1,
-    "Legendary": false
-  },
-  {
     "Number": 7,
     "Name": "Squirtle",
     "Type": ["Water"],
@@ -163,20 +121,6 @@
     "Defense": 100,
     "Sp. Atk": 85,
     "Sp. Def": 105,
-    "Speed": 78,
-    "Generation": 1,
-    "Legendary": false
-  },
-  {
-    "Number": 9,
-    "Name": "BlastoiseMega Blastoise",
-    "Type": ["Water"],
-    "Total": 630,
-    "HP": 79,
-    "Attack": 103,
-    "Defense": 120,
-    "Sp. Atk": 135,
-    "Sp. Def": 115,
     "Speed": 78,
     "Generation": 1,
     "Legendary": false
@@ -262,20 +206,6 @@
     "Sp. Atk": 45,
     "Sp. Def": 80,
     "Speed": 75,
-    "Generation": 1,
-    "Legendary": false
-  },
-  {
-    "Number": 15,
-    "Name": "BeedrillMega Beedrill",
-    "Type": ["Bug", "Poison"],
-    "Total": 495,
-    "HP": 65,
-    "Attack": 150,
-    "Defense": 40,
-    "Sp. Atk": 15,
-    "Sp. Def": 80,
-    "Speed": 145,
     "Generation": 1,
     "Legendary": false
   },
@@ -422,6 +352,7 @@
   {
     "Number": 25,
     "Name": "Pikachu",
+    "Nickname": "Pique à chou",
     "Type": ["Electric"],
     "Total": 320,
     "HP": 35,

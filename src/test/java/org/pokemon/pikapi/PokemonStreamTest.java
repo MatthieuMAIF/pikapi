@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 @SpringBootTest
-public class PokemonServiceTest {
+public class PokemonStreamTest {
 	@Autowired
 	private PokemonService service;
 
@@ -41,4 +41,15 @@ public class PokemonServiceTest {
 		final List<String> names = service.getFastestPokemon(3);
 		Assertions.assertEquals(names,List.of("Shuckle", "Munchlax", "Trapinch"));
 	}
+
+
+	@Test
+	public void exercice5() {
+		/** Retourne un pokemon fusionné*/
+		final Pokemon pokemon = service.getFusionPokemon(2,25);
+		Assertions.assertEquals(pokemon.getName(),"Ivyachu");
+		final Pokemon pokemon1 = service.getFusionPokemon(6,19,30);
+		Assertions.assertEquals(pokemon1.getName(),"Charrina");
+	}
+
 }
