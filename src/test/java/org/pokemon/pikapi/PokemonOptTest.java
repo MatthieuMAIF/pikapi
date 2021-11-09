@@ -17,7 +17,7 @@ public class PokemonOptTest {
 	@Test
 	public void exercice1() {
 		/** Tester que l'on n'a pas de pokemon */
-		Assertions.assertTrue(service.getPokemon(25).isEmpty());
+		Assertions.assertTrue(service.getPokemon(2500).isEmpty());
 		/** Tester que l'on a un pokemon */
 		Assertions.assertTrue(service.getPokemon(25).isPresent());
 	}
