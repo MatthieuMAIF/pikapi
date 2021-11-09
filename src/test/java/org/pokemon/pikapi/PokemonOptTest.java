@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 public class PokemonOptTest {
@@ -17,9 +18,11 @@ public class PokemonOptTest {
 	@Test
 	public void exercice1() {
 		/** Tester que l'on n'a pas de pokemon */
-		Assertions.assertTrue(service.getPokemon(2500).isEmpty());
+		final Optional<Pokemon> unknownPokemon = service.getPokemon(2500);
+		Assertions.assertTrue(unknownPokemon.isEmpty());
 		/** Tester que l'on a un pokemon */
-		Assertions.assertTrue(service.getPokemon(25).isPresent());
+		final Optional<Pokemon> pikachu = service.getPokemon(2500);
+		Assertions.assertTrue(pikachu.isPresent());
 	}
 
 	@Test

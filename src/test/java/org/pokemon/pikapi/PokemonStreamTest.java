@@ -19,27 +19,27 @@ public class PokemonStreamTest {
 	public void exercice1() {
 		/** Réunir l'ensemble des données dans une liste*/
 		final List<Pokemon> allPokemon = service.getAllPokemon();
-		Assertions.assertEquals(allPokemon.size(),800);
+		Assertions.assertEquals(795,allPokemon.size());
 	}
 	@Test
 	public void exercice2() {
 		/** Retourne les pokemons legendaire*/
 		final List<Pokemon> allPokemon = service.getAllLegendaryPokemon();
-		Assertions.assertEquals(allPokemon.size(),65);
+		Assertions.assertEquals(65,allPokemon.size());
 	}
 
 	@Test
 	public void exercice3() {
 		/** Retourne les types des pokemons legendaire*/
 		final List<String> types = service.getAllTypeOfLegendaryPokemon();
-		Assertions.assertEquals(types.size(),16);
+		Assertions.assertEquals(16,types.size());
 	}
 
 	@Test
 	public void exercice4() {
 		/** Retourne le nom des pokemons les plus rapide*/
 		final List<String> names = service.getFastestPokemon(3);
-		Assertions.assertEquals(names,List.of("Shuckle", "Munchlax", "Trapinch"));
+		Assertions.assertEquals(List.of("Shuckle", "Munchlax", "Trapinch"),names);
 	}
 
 
@@ -47,9 +47,9 @@ public class PokemonStreamTest {
 	public void exercice5() {
 		/** Retourne un pokemon fusionné*/
 		final Pokemon pokemon = service.getFusionPokemon(2,25);
-		Assertions.assertEquals(pokemon.getName(),"Ivyachu");
+		Assertions.assertEquals("Ivyachu",pokemon.getName());
 		final Pokemon pokemon1 = service.getFusionPokemon(6,19,30);
-		Assertions.assertEquals(pokemon1.getName(),"Charrina");
+		Assertions.assertEquals("Charrina",pokemon1.getName());
 	}
 
 }
