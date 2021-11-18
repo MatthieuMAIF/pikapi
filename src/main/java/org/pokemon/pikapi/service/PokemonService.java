@@ -17,29 +17,29 @@ public class PokemonService {
 	@Autowired
 	private PokemonAdapter adapter;
 
-	public List<Pokemon> getAllPokemon() {
-			return adapter.getListAllPokemon().collect(Collectors.toList());
-	}
-
 	public String getPokemonNicknameOrNone(Integer number){
 		return getPokemon(number)
-				.flatMap(p -> Optional.ofNullable(p.getNickname()))
+				.map(Pokemon::getNickname)
 				.orElse("NONE");
 	}
 
-
 	public Optional<Pokemon> getPokemon(Integer number) {
 		/*	à remplacer par traitement avec le stream
-		for (Pokemon pokemon : adapter.getListAllPokemon().collect(Collectors.toList())) {
+		for (Pokemon pokemon : adapter.getListAllPokemon())) {
 			if(number.equals(pokemon.getNumber())){
 				return Optional.ofNullable(pokemon);
 			}
 		}
 		return Optional.empty();
 	*/
-		return adapter.getListAllPokemon()
+		return adapter.getStreamAllPokemon()
 				.filter(p -> p.getNumber().equals(number))
 				.findFirst();
+	}
+
+
+	public List<Pokemon> getAllPokemon() {
+		return adapter.getStreamAllPokemon().collect(Collectors.toList());
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class PokemonService {
 	 * @return
 	 */
 	public List<Pokemon> getAllLegendaryPokemon() {
-			return adapter.getListAllPokemon()
+			return adapter.getStreamAllPokemon()
 					.filter(Pokemon::isLegendary)
 					.collect(Collectors.toList());
 
@@ -58,7 +58,7 @@ public class PokemonService {
 	 * @return
 	 */
 	public List<String> getAllTypeOfLegendaryPokemon() {
-			return adapter.getListAllPokemon()
+			return adapter.getStreamAllPokemon()
 					.filter(Pokemon::isLegendary)
 					.flatMap(p -> p.getType().stream())
 					.distinct()
@@ -68,7 +68,7 @@ public class PokemonService {
 
 
 	public List<String> getFastestPokemon(int nbPokemon) {
-		return adapter.getListAllPokemon()
+		return adapter.getStreamAllPokemon()
 				.sorted(Comparator.comparing(Pokemon::getSpeed))
 				.limit(nbPokemon)
 				.map(Pokemon::getName)
@@ -83,7 +83,7 @@ public class PokemonService {
 	 * @return
 	 */
 	public Pokemon getFusionPokemon(Integer... numeros) {
-		return adapter.getListAllPokemon()
+		return adapter.getStreamAllPokemon()
 				.filter(p -> Arrays.stream(numeros).parallel().anyMatch(n -> n.equals(p.getNumber())))
 				.reduce(null, this::fusionPokemon);
 	}

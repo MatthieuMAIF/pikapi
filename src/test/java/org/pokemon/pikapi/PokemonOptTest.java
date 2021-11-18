@@ -30,6 +30,8 @@ public class PokemonOptTest {
 		/** Retourne le surnom des pokemons ou "NONE"*/
 		String nickname = service.getPokemonNicknameOrNone(25);
 		Assertions.assertEquals(nickname,"Pique à chou");
+		nickname = service.getPokemonNicknameOrNone(2500);
+		Assertions.assertEquals(nickname,"NONE");
 		nickname = service.getPokemonNicknameOrNone(12);
 		Assertions.assertEquals(nickname,"NONE");
 	}

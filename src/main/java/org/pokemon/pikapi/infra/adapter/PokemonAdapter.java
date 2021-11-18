@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -27,13 +28,18 @@ public class PokemonAdapter {
 
 	@Value(value = "classpath:data.json")
 	private Resource resource;
-	public Stream<Pokemon> getListAllPokemon(){
+	public Stream<Pokemon> getStreamAllPokemon(){
 		try {
 			return new ObjectMapper().readValue(asString(resource), new TypeReference<List<Pokemon>>(){}).stream();
 		} catch (IOException e) {
 			LOGGER.error("Impossible to collect pokemon datas", e);
 		}
 		return Stream.empty();
+	}
+
+	@Deprecated
+	public List<Pokemon> getListAllPokemon(){
+		return getStreamAllPokemon().collect(Collectors.toList());
 	}
 	public static String asString(Resource resource) throws IOException {
 		Reader reader = new InputStreamReader(resource.getInputStream(),  StandardCharsets.UTF_8);
