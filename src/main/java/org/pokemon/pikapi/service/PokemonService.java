@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -17,29 +18,16 @@ public class PokemonService {
 	@Autowired
 	private PokemonAdapter adapter;
 
-	public List<Pokemon> getAllPokemon() {
-			return adapter.getListAllPokemon().collect(Collectors.toList());
+	public Optional<Pokemon> getPokemon(Integer number) {
+		return null;
 	}
 
 	public String getPokemonNicknameOrNone(Integer number){
-		return getPokemon(number)
-				.flatMap(p -> Optional.ofNullable(p.getNickname()))
-				.orElse("NONE");
+		return "";
 	}
 
-
-	public Optional<Pokemon> getPokemon(Integer number) {
-		/*	à remplacer par traitement avec le stream
-		for (Pokemon pokemon : adapter.getListAllPokemon().collect(Collectors.toList())) {
-			if(number.equals(pokemon.getNumber())){
-				return Optional.ofNullable(pokemon);
-			}
-		}
-		return Optional.empty();
-	*/
-		return adapter.getListAllPokemon()
-				.filter(p -> p.getNumber().equals(number))
-				.findFirst();
+	public List<Pokemon> getAllPokemon() {
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
@@ -47,10 +35,19 @@ public class PokemonService {
 	 * @return
 	 */
 	public List<Pokemon> getAllLegendaryPokemon() {
-			return adapter.getListAllPokemon()
-					.filter(Pokemon::isLegendary)
-					.collect(Collectors.toList());
+				return Collections.EMPTY_LIST;
+		}
 
+
+
+
+	/**
+	 *
+	 * @param nbPokemon
+	 * @return
+	 */
+	public List<String> getFastestPokemon(int nbPokemon) {
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
@@ -58,22 +55,11 @@ public class PokemonService {
 	 * @return
 	 */
 	public List<String> getAllTypeOfLegendaryPokemon() {
-			return adapter.getListAllPokemon()
-					.filter(Pokemon::isLegendary)
-					.flatMap(p -> p.getType().stream())
-					.distinct()
-					.collect(Collectors.toList());
+			return  Collections.EMPTY_LIST;
 	}
 
 
 
-	public List<String> getFastestPokemon(int nbPokemon) {
-		return adapter.getListAllPokemon()
-				.sorted(Comparator.comparing(Pokemon::getSpeed))
-				.limit(nbPokemon)
-				.map(Pokemon::getName)
-				.collect(Collectors.toList());
-	}
 
 
 
@@ -83,9 +69,7 @@ public class PokemonService {
 	 * @return
 	 */
 	public Pokemon getFusionPokemon(Integer... numeros) {
-		return adapter.getListAllPokemon()
-				.filter(p -> Arrays.stream(numeros).parallel().anyMatch(n -> n.equals(p.getNumber())))
-				.reduce(null, this::fusionPokemon);
+		return new Pokemon();
 	}
 
 	private  Pokemon fusionPokemon(Pokemon p1, Pokemon p2) {

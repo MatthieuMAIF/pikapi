@@ -30,16 +30,16 @@ public class PokemonStreamTest {
 
 	@Test
 	public void exercice3() {
-		/** Retourne les types des pokemons legendaire*/
-		final List<String> types = service.getAllTypeOfLegendaryPokemon();
-		Assertions.assertEquals(16,types.size());
+		/** Retourne le nom des pokemons les plus rapide*/
+		final List<String> names = service.getFastestPokemon(3);
+		Assertions.assertEquals(List.of("Shuckle", "Munchlax", "Trapinch"),names);
 	}
 
 	@Test
 	public void exercice4() {
-		/** Retourne le nom des pokemons les plus rapide*/
-		final List<String> names = service.getFastestPokemon(3);
-		Assertions.assertEquals(List.of("Shuckle", "Munchlax", "Trapinch"),names);
+		/** Retourne les types des pokemons legendaire*/
+		final List<String> types = service.getAllTypeOfLegendaryPokemon();
+		Assertions.assertEquals(16,types.size());
 	}
 
 

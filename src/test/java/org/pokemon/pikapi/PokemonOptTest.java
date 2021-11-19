@@ -21,7 +21,7 @@ public class PokemonOptTest {
 		final Optional<Pokemon> unknownPokemon = service.getPokemon(2500);
 		Assertions.assertTrue(unknownPokemon.isEmpty());
 		/** Tester que l'on a un pokemon */
-		final Optional<Pokemon> pikachu = service.getPokemon(2500);
+		final Optional<Pokemon> pikachu = service.getPokemon(25);
 		Assertions.assertTrue(pikachu.isPresent());
 	}
 
@@ -29,8 +29,10 @@ public class PokemonOptTest {
 	public void exercice2() {
 		/** Retourne le surnom des pokemons ou "NONE"*/
 		String nickname = service.getPokemonNicknameOrNone(25);
-		Assertions.assertEquals(nickname,"Pique à chou");
+		Assertions.assertEquals("Pique à chou",nickname);
+		 nickname = service.getPokemonNicknameOrNone(2500);
+		Assertions.assertEquals("NONE",nickname);
 		nickname = service.getPokemonNicknameOrNone(12);
-		Assertions.assertEquals(nickname,"NONE");
+		Assertions.assertEquals("NONE", nickname);
 	}
 }
