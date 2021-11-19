@@ -21,7 +21,7 @@ public class PokemonOptTest {
 		final Optional<Pokemon> unknownPokemon = service.getPokemon(2500);
 		Assertions.assertTrue(unknownPokemon.isEmpty());
 		/** Tester que l'on a un pokemon */
-		final Optional<Pokemon> pikachu = service.getPokemon(2500);
+		final Optional<Pokemon> pikachu = service.getPokemon(25);
 		Assertions.assertTrue(pikachu.isPresent());
 	}
 
