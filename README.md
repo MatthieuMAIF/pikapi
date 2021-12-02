@@ -456,4 +456,4 @@ Try.of(() -> //mon traitement)
 ```
 **Exercice 4:**
 
-Récrire ```getPokemon()``` avec le Try de VAVR.
+Réécrire ```getPokemon()``` avec le Try de VAVR.
