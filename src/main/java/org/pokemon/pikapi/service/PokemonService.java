@@ -1,5 +1,8 @@
 package org.pokemon.pikapi.service;
 
+import io.vavr.control.Either;
+import org.pokemon.pikapi.error.Error;
+import org.pokemon.pikapi.error.Potential;
 import org.pokemon.pikapi.infra.adapter.PokemonAdapter;
 import org.pokemon.pikapi.infra.data.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,4 +108,18 @@ public class PokemonService {
 				.orElse(p2);
 	}
 
+
+
+	public Either<String, Pokemon> getPokemonEither(Integer number)    {
+		return this.getPokemon(number)
+				.map(Either::<String, Pokemon>right)
+				.orElse(Either.left(String.format("Le numéro de pokemon %d est inconnu", number)));
+	}
+
+	public Potential<Pokemon> getPokemonPotential(Integer number)    {
+		return this.getPokemon(number)
+				.map(Potential::result)
+				.orElse(Potential.error(Error.ECHEC_RECUPERATION_POKEMON,
+						List.of(String.valueOf(number))));
+	}
 }

@@ -253,3 +253,207 @@ qui sait fusionner deux pokemons entre eux.
 		Assertions.assertEquals("Charrina",pokemon1.getName());
 	}   
 ```
+
+## CompletableFuture
+
+Completable Future est une classe qui est apparue avec la version 8 de java
+```java.util.concurrent.CompletableFuture<T>```
+
+Elle implémente 2 interfaces: CompletionStage<T>, Future<T>
+
+https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html
+
+
+**Création d’un completable future**
+
+```CompletableFuture.supplyAsync(() ->…)```
+
+Pour passer d’un CompletionStage vers un CompletableFuture
+
+```completionStage.toCompletableFuture()```
+
+
+
+**CompletionStage for the endpoint**
+
+Optimisation des ressources avec les servlets 3
+
+```java
+@GetMapping("/{numero}")
+public CompletionStage<ReponseDTO<Pokemon>> getPokemon(Integer number){
+	…
+}
+```
+https://spring.io/blog/2012/05/07/spring-mvc-3-2-preview-introducing-servlet-3-async-support
+
+***<span style="color: red;">Attention</span>*** *Dans un thread de completable future, on perd le contexte Spring*
+
+
+**Exercice 1**
+
+Modifier le controler ```getPokemon``` pour qu’il retourne un ```CompletionStage```
+
+
+**Traitement itératif**
+  - ```completableFuture.get()``` 
+    - Future: récupération de la valeur ou lève une exception en cas de problème
+
+  - ```completableFuture.join()```
+    -  CompletionStage: récupération de la valeur sans le levé d’exception.
+
+**Traitement fonctionnel**
+
+  - ```cFuture.thenApply( result -> ..)```
+    -  Lance le traitement du then une fois le completable terminé
+    -  Retourne un completable future
+  - ```cFuture.thenAccept( result -> ..)```
+    -  Retourne pas de completableFuture
+
+**Exercice 2**
+
+Implémenter de manières fonctionnel et itératif le test du controler ```getPokemon``` (PokemonCFutureTest)
+
+
+**Appels imbriqués**
+
+```java
+CompletableFuture< CompletableFuture<?>> future = CompletableFuture.completedFuture()
+      .thenApply( res1 ->CompletableFuture.completedFuture(..)
+	                      		.thenApply( res2-> res2))
+
+```
+*« thenCompose == flatMap »*
+
+```java
+CompletableFuture<?> future = CompletableFuture.completedFuture()
+      .thenCompose( res1 -> CompletableFuture.completedFuture(..)
+	                       		.thenApply( res2-> res2))
+```
+
+**Appels parallèles**
+```java
+CompletableFuture.allOf(callAsync1, callAsync2….)
+	.thenApply(v -> callAsync1.join())
+```
+
+**Exercice 3:**
+
+Implémenter le test unitaire pour les controlers:
+ -  controler.getLegendsPokemon()
+ -  controler.getPokemon()
+
+Récupérer le numéro du premier Pokemon légendaire et aller récupérer l’ensemble des informations liées à ce Pokemon
+
+**Exercice 4:**
+
+Implémenter le test unitaire pour les controlers:
+ -  controler.getPokemon()
+
+Récupérer l’ensemble des informations liées aux Pokemon 3,6,21
+
+## VAVR: Either
+
+**Présentation de VAVR**
+
+https://www.vavr.io/
+
+ -  Option
+ -  Tuple
+ -  Collection
+ -  Lazy
+ -  Match
+ -  **Either**
+ -  Try
+
+```java
+Interface Either<L,R>
+
+Type Parameters:
+L - The type of the Left value of an Either.
+R - The type of the Right value of an Either
+````
+
+| Either  			   ||
+|-----------|-----------|
+| Error 	| Result   	|
+
+
+https://www.javadoc.io/doc/io.vavr/vavr/0.10.0/io/vavr/control/Either.html
+
+
+
+**Implémentation**
+
+
+***LEFT***
+  - Création 
+    - ```Either result = Either.left(‘’error’’);```
+
+  - Traitement
+    - ```result.mapLeft(msgError -> String.UpperCase(msgError))```
+
+
+***RIGHT***
+  - Création
+    - ```Either.right(new Vehicule( ));```
+
+  - Traitement
+    - ```result.map( veh -> veh.getImmat());```
+
+Exemple d'un cas complet
+
+```java
+Either<String,Vehicule> res = getVehicule();
+return res.map( veh -> veh.getImmat())
+	. getOrElseGet(‘’122JH79’’);
+```
+
+Personnaliser
+
+*« Au-delà d’une interface, either instaure une philosophie que l’on peut adapter, compléter, améliorer » *
+
+```Potential<T>```
+
+Fonctionnalités manquantes:
+  - Concaténer plusieurs eithers
+  - Gérer différents niveaux de messages
+
+
+**Exercice 1:**
+
+Implémenter ```getPokemonEither()``` de PokemonService avec des Either
+Adapter ```getPokemon()``` dans le controler pour que le test unitaire exercice1 fonctionne toujours.
+
+Implémenter et utiliser la méthode ```<T> ReponseDTO<T> result(Either<String, T> either)```
+
+**Exercice 2:**
+
+Implémenter  ```getPokemonPotential()``` de PokemonService avec des Potentials
+
+Faire un test unitaire qui cumule les erreurs lors de l’appel :
+
+  - ```pokemonService.getPokemonPotential(21000)```
+  - ```pokemonService.getPokemonPotential(25000)```
+
+
+## Try
+
+```java
+try {
+	//mon traitement
+	//traitement du résultat
+ } catch (Exception e) {
+	//traitement en cas d’exception
+ }
+````
+
+```java
+
+Try.of(() -> //mon traitement)
+      .map(traitement du résultat)
+      .recover(//traitement en cas d’exception)
+
+```
+**Exercice 4:**
+
+Récrire ```getPokemon()``` avec le Try de VAVR.
