@@ -21,10 +21,7 @@ public class ReponseDTO<T> {
 				.build();
 	}
 	public static <T> ReponseDTO<T> result(Either<String, T> either){
-		return  either
-				.map(ReponseDTO::reponse)
-				.getOrElseGet(ReponseDTO::error);
-
+		return  null;
 
 	}
 }

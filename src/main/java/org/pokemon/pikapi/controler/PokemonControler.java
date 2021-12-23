@@ -25,24 +25,15 @@ public class PokemonControler {
 
 	@GetMapping("/{numero}")
 	public CompletionStage<ReponseDTO<Pokemon>> getPokemon(Integer number){
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				final Pokemon pokemon = getAndControlePokemon(number);
+	/**
+				getAndControlePokemon()
 				Thread.sleep(new Random().nextInt(10000) + 1000);
 				return ReponseDTO.reponse(pokemon);
-			} catch (IllegalArgumentException | InterruptedException e) {
-				return ReponseDTO.error(e.getMessage());
-			}
-		});
-	}
 
-	/**ReponseDTO.result(pokemonService.getPokemonEither(number))*/
-	/**
-	 return  Try.of(() ->getAndControlePokemon(number))
-	 .map(ReponseDTO::reponse)
-	 .recover(e  ->ReponseDTO.error(e.getMessage()))
-	 .toCompletableFuture() ;
-	 */
+				return ReponseDTO.error(e.getMessage());
+			**/
+		return null;
+	}
 
 
 	@GetMapping("/legends/")

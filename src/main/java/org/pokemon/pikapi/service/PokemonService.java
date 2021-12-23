@@ -111,15 +111,10 @@ public class PokemonService {
 
 
 	public Either<String, Pokemon> getPokemonEither(Integer number)    {
-		return this.getPokemon(number)
-				.map(Either::<String, Pokemon>right)
-				.orElse(Either.left(String.format("Le numéro de pokemon %d est inconnu", number)));
+		return null;
 	}
 
 	public Potential<Pokemon> getPokemonPotential(Integer number)    {
-		return this.getPokemon(number)
-				.map(Potential::result)
-				.orElse(Potential.error(Error.ECHEC_RECUPERATION_POKEMON,
-						List.of(String.valueOf(number))));
+		return Potential.empty();
 	}
 }

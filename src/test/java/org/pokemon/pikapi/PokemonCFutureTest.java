@@ -27,19 +27,12 @@ public class PokemonCFutureTest {
     @Test
     public void exercice2() {
         LOGGER.warn("test with apply");
-        controler.getPokemon(25)
-                .thenApply(ReponseDTO::getData)
-                .thenApply(Pokemon::getName)
-                .thenAccept(name -> {
-                    Assertions.assertEquals("Pikachu", name);
-                    LOGGER.warn("assert apply");
-                });
+
+
         LOGGER.warn("end of test with apply");
         LOGGER.warn("test withjoin");
-        Assertions.assertEquals("Pikachu", controler.getPokemon(25)
-                .toCompletableFuture()
-                .join().getData().getName());
-        LOGGER.warn("assert join");
+
+
         LOGGER.warn("end of test with join");
 
     }
@@ -47,11 +40,8 @@ public class PokemonCFutureTest {
     @Test
     public void exercice3(){
 
-        final CompletableFuture<ReponseDTO<Pokemon>> completableFutureCompletableFuture =
-                controler.getLegendsPokemon()
-                        .thenApply(ReponseDTO::getData)
-                        .thenApply(l -> l.get(0))
-                        .thenCompose(number -> controler.getPokemon(number));
+        final CompletableFuture<ReponseDTO<Pokemon>> completableFutureCompletableFuture =null
+             ;
 
         completableFutureCompletableFuture
                 .thenApply(ReponseDTO::getData)
@@ -71,16 +61,7 @@ public class PokemonCFutureTest {
         CompletableFuture<ReponseDTO<Pokemon>> pokemon6 = controler.getPokemon(6).toCompletableFuture();
         CompletableFuture<ReponseDTO<Pokemon>> pokemon21 = controler.getPokemon(25).toCompletableFuture();
 
-        CompletableFuture.allOf(pokemon3, pokemon6, pokemon21)
-                .thenAccept(v ->
-                        Stream.of(pokemon3, pokemon6, pokemon21)
-                                .map(CompletableFuture::join)
-                                .map(ReponseDTO::getData)
-                                .map(Pokemon::getName)
-                                .forEach(name -> Assertions.assertTrue(List.of("Venusaur", "Charizard", "Pikachu")
-                                        .contains(name),name)))
 
-                .join();
 
     }
 

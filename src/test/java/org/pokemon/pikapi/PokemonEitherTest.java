@@ -36,10 +36,7 @@ public class PokemonEitherTest {
 	@Test
 	public void exercice2() {
 
-		Potential<Tuple2<Pokemon, Pokemon>> result = Potential.concat(
-				pokemonService.getPokemonPotential(21000),
-				pokemonService.getPokemonPotential(25000));
-
+		Potential<?> result=null;
 		Assertions.assertEquals(2,result.getLeft().errors.size());
 		Assertions.assertEquals("Ce numéro de pokemon 21000 est inconnu",result.getLeft().errors.get(0).toString());
 		Assertions.assertEquals("Ce numéro de pokemon 25000 est inconnu",result.getLeft().errors.get(1).toString());
